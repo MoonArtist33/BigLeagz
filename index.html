@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>OpenSea NFT Collections</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <style>
+
+    #nft-container {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+    }
+
+    .nft-card {
+
+      width: 200px;
+
+      margin: 10px;
+
+      border: 1px solid #ccc;
+
+      padding: 10px;
+
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    }
+
+    .nft-card img {
+
+      width: 100%;
+
+      height: auto;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>OpenSea NFT Collections</h1>
+
+  <div id="nft-container">
+
+    <!-- NFT cards will be populated here -->
+
+  </div>
+
+
+
+  <script>
+
+    // Fetch NFTs from OpenSea API
+
+    $(document).ready(function(){
+
+      const collections = [
+
+        'sluggerzbybigleagz', 'heaterzbybigleagz', 'oldtimerzbybigleagz',
+
+        'iconzbybigleagz', 'acezbybigleagz', 'framerzbybigleagz',
+
+        'greatzbybigleagz', 'charmzbybigleagz', 'ringerzbybigleagz',
+
+        'exclusivezbybigleagz', 'roundedcrowns'
+
+      ];
+
+      collections.forEach(function(collection) {
+
+        $.getJSON(`https://api.opensea.io/api/v1/assets?order_direction=desc&offset=0&limit=20&collection=${collection}`, function(data) {
+
+          data.assets.forEach(function(asset) {
+
+            $('#nft-container').append(`
+
+              <div class="nft-card">
+
+                <img src="${asset.image_thumbnail_url}" alt="${asset.name}">
+
+                <h3>${asset.name}</h3>
+
+              </div>
+
+            `);
+
+          });
+
+        });
+
+      });
+
+    });
+
+  </script>
+
+</body>
+
+</html>
